@@ -127,7 +127,8 @@
                 padding: rem(20);
                 border: 1px solid var(--desaturated-red);
                 border-radius: 8%/50%;
-                color: var(--desaturated-red);
+                background-color: transparent;
+                color: black;
                 font-family: $font-josefin;
 
                 @include breakpoint-min('large') {
@@ -139,6 +140,10 @@
                 &:focus {
                     outline: none;
                     box-shadow: 0 0 0 1px var(--desaturated-red);
+                }
+
+                &::placeholder {
+                    color: var(--desaturated-red);
                 }
             }
 
@@ -152,12 +157,20 @@
                 border-radius: 40%/50%;
                 background: $button-gradient;
                 cursor: pointer;
-                box-shadow: 0 8px 15px 1px rgba($color: $dark-greyish-red, $alpha: 0.2);
+                box-shadow: 0 8px 15px 1px var(--desaturated-red);
 
                 @include breakpoint-min('large') {
                     height: rem(55);
                     width: rem(90);
                     border-radius: 30%/50%;
+
+                    &:hover {
+                        top: rem(-1);
+                        right: rem(-1);
+                        height: rem(57);
+                        width: rem(92);
+                        opacity: .65;
+                    }
                 }
 
                 .email__arrow {
@@ -172,6 +185,28 @@
                 display: none;
             }
 
+            .email__error--animated {
+                @include keyframes(error) {
+                    20% {
+                        transform: translateX(3px);
+                    }
+
+                    40% {
+                        transform: translateX(-3px);
+                    }
+
+                    60% {
+                        transform: translateX(3px);
+                    }
+
+                    80% {
+                        transform: translateX(-3px);
+                    }
+                }
+
+                @include animate(error, .5s, linear, 1);
+            }
+
             .email__error {
                 position: absolute;
                 top: 0;
@@ -183,6 +218,24 @@
                 @include breakpoint-min('large') {
                     height: rem(55);
                     right: rem(105);
+                }
+            }
+
+            .email__msg--disabled {
+                display: none;
+            }
+
+            .email__msg {
+                position: absolute;
+                top: rem(54);
+                left: rem(20);
+                font-size: rem(11);
+                color: var(--soft-red);
+
+                @include breakpoint-min('large') {
+                    top: rem(63);
+                    font-size: rem(13);
+                    left: rem(23);
                 }
             }
         }
