@@ -1,17 +1,25 @@
 @use 'utility/'as *;
 
 .container {
-    display: flex;
+    display: grid;
+    grid: "logo"rem(80) "hero"rem(250) "newsletter"1fr / 100vw;
     height: 100vh;
-    flex-direction: column;
+    width: 100vw;
     background: $light-gradient;
-    align-items: center;
+
+    @include breakpoint-min('large') {
+        grid: "blank logo hero"rem(200) "blank newsletter hero"1fr / 12% 3fr 2.5fr;
+        background: url("../images/bg-pattern-desktop.svg") top left / cover no-repeat;
+    }
 
     .logo {
         position: relative;
-        flex-basis: rem(80);
         margin: 0 rem(30);
-        align-self: flex-start;
+        grid-area: logo;
+
+        @include breakpoint-min('large') {
+            margin: 0 0;
+        }
 
         .logo__img {
             position: absolute;
@@ -19,39 +27,47 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
+
+            @include breakpoint-min('large') {
+                height: 18%;
+            }
         }
     }
 
     .hero {
         position: relative;
-        flex-basis: rem(250);
         overflow: hidden;
+        grid-area: hero;
 
         .hero__img--mobile {
-            min-width: 100vw;
+            min-width: 100%;
             min-height: 100%;
 
-            @include breakpoint-min('medium') {
+            @include breakpoint-min('large') {
                 display: none;
             }
         }
 
         .hero__img--desktop {
             display: none;
+            min-height: 100%;
+            min-width: 100%;
 
-            @include breakpoint-min('medium') {
+            @include breakpoint-min('large') {
                 display: block;
             }
         }
     }
 
     .newsletter {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: rem(70) rem(32) 0;
+        margin: rem(70) auto 0;
         width: rem(300);
+        grid-area: newsletter;
+
+        @include breakpoint-min('large') {
+            width: rem(400);
+            margin: rem(60) 0 0;
+        }
 
         .newsletter__info {
 
@@ -63,6 +79,12 @@
                 font-weight: 600;
                 word-spacing: 100vw;
                 letter-spacing: rem(10);
+
+                @include breakpoint-min('large') {
+                    text-align: left;
+                    font-size: rem(60);
+                    letter-spacing: rem(15);
+                }
 
                 .newsletter__header--highlighted {
                     color: var(--desaturated-red);
@@ -77,6 +99,12 @@
                 color: var(--desaturated-red);
                 font-size: rem(14);
                 line-height: 150%;
+
+                @include breakpoint-min('large') {
+                    margin-top: rem(22);
+                    text-align: left;
+                    font-size: rem(16);
+                }
             }
         }
 
@@ -85,6 +113,10 @@
             margin-top: rem(32);
             text-align: center;
             width: 100%;
+
+            @include breakpoint-min('large') {
+                margin-top: rem(42);
+            }
 
             .email__input {
                 position: absolute;
@@ -96,6 +128,13 @@
                 border: 1px solid var(--desaturated-red);
                 border-radius: 8%/50%;
                 color: var(--desaturated-red);
+                font-family: $font-josefin;
+
+                @include breakpoint-min('large') {
+                    height: rem(55);
+                    border-radius: 7%/50%;
+                    padding: rem(26)
+                }
 
                 &:focus {
                     outline: none;
@@ -113,6 +152,13 @@
                 border-radius: 40%/50%;
                 background: $button-gradient;
                 cursor: pointer;
+                box-shadow: 0 8px 15px 1px rgba($color: $dark-greyish-red, $alpha: 0.2);
+
+                @include breakpoint-min('large') {
+                    height: rem(55);
+                    width: rem(90);
+                    border-radius: 30%/50%;
+                }
 
                 .email__arrow {
                     position: absolute;
@@ -133,6 +179,11 @@
                 height: rem(45);
                 display: flex;
                 align-items: center;
+
+                @include breakpoint-min('large') {
+                    height: rem(55);
+                    right: rem(105);
+                }
             }
         }
     }
